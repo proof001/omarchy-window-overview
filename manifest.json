@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.proof001.window-overview",
+  "name": "Window Overview",
+  "version": "1.0.0",
+  "author": "proof001",
+  "license": "MIT",
+  "description": "Mission Control-style overview of every open window across all workspaces, as live thumbnails. Click or press Enter to jump to one.",
+  "kinds": [
+    "overlay"
+  ],
+  "keepLoaded": true,
+  "entryPoints": {
+    "overlay": "Overlay.qml"
+  }
+}
