@@ -187,7 +187,7 @@ Item {
       anchors.fill: parent
       // The theme scrim is tuned for small menus; an overview needs the
       // desktop pushed much further back.
-      color: Qt.rgba(0, 0, 0, 0.72)
+      color: Qt.rgba(0, 0, 0, 0.85)
       opacity: root.opened ? 1 : 0
       Behavior on opacity { NumberAnimation { duration: 140 } }
     }
@@ -308,7 +308,11 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             y: (grid.previewHeight - height) / 2
             radius: Style.cornerRadius + 3
-            color: Util.alpha(Color.menu.background, 0.85)
+            // Opaque, so translucent windows (terminals) don't show the
+            // desktop through their thumbnails.
+            // The theme's menu background can itself be translucent, so drop
+            // its alpha.
+            color: Qt.rgba(Color.menu.background.r, Color.menu.background.g, Color.menu.background.b, 1)
             border.width: tile.selected || hover.containsMouse ? 3 : 1
             border.color: tile.selected
               ? Color.menu.selectedBackground
@@ -362,9 +366,12 @@ Item {
             }
           }
 
+          // Title sits directly under the frame, not at the bottom of the
+          // slot, so short (wide) windows don't float away from their label.
           Row {
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
+            anchors.top: frame.bottom
+            anchors.topMargin: Style.space(8)
             spacing: Style.space(8)
             width: Math.min(implicitWidth, tile.width)
 
